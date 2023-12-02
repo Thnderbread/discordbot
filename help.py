@@ -43,8 +43,13 @@ class TextSpacerHelp(commands.HelpCommand):
         embed = discord.Embed(
             title=self.get_command_signature(command), color=discord.Color.random()
         )
+
+        embed.description = f"Custom text: {command.usage or 'No usage provided.'}"
+
         if command.help:
-            embed.description = command.help
+            embed.add_field(
+                name="Command Description", value=command.help, inline=False
+            )
         if alias := command.aliases:
             embed.add_field(name="Aliases", value=", ".join(alias), inline=False)
 
@@ -53,7 +58,6 @@ class TextSpacerHelp(commands.HelpCommand):
     async def send_cog_help(self, cog: Cog) -> None:
         embed = discord.Embed(
             title=cog.qualified_name or "No Category",
-            description=cog.description,
             color=discord.Color.blurple(),
         )
 
