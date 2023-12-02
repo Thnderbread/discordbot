@@ -44,7 +44,6 @@ async def spacify(ctx: commands.Context, *args: tuple[str]):
     H e l l o there!
     (Note - I only have access to emotes in this server!)
     """
-
     if len(args) == 0:
         await ctx.send(f"## Usage:\n\n{spacify.help}")
         return
@@ -60,8 +59,37 @@ async def spacify(ctx: commands.Context, *args: tuple[str]):
             spaced_message += emote
             continue
 
+        # check for ignore
+        if fragment[0] == "{":
+            word = "".join(fragment)
+            # if the ignore starts and ends
+            # on the same value, e.g. {ignored},
+            # handle it here at once.
+            if word.endswith("}"):
+                spaced_message += word[1:-1] + " "
+                continue
+            else:
+                ignoring = True
+                spaced_message += word[1:] + " "
+                continue
+
+        # if ignoring, first see if the end flag is present.
+        # if so, add the message, stop ignoring.
+        # if not, add the message and continue.
+        if ignoring:
+            word = "".join(fragment)
+            if word.endswith("}"):
+                ignoring = False
+                word = word[:-1]
+            spaced_message += word + " "
+            continue
+
+        # ? could str.replace with a regex for
+        # ? all characters be used instead of
+        # ? nested iteration? it would have
+        # ? to ignore spaces and emojis.
         # spacing the letters in the fragment
-        for idx, letter in enumerate(fragment):
+        for letter in fragment:
             if letter.isspace():
                 spaced_message += " "
                 continue
@@ -69,23 +97,6 @@ async def spacify(ctx: commands.Context, *args: tuple[str]):
             # add a space behind emojis
             elif emoji.is_emoji(letter):
                 spaced_message += letter + " "
-                continue
-
-            if letter == "{":
-                ignoring = True
-                continue
-            elif letter == "}" and ignoring:
-                spaced_message += " "
-                ignoring = False
-                continue
-
-            # add a space if this is the last
-            # word in the ignored substring
-            if ignoring:
-                if idx == len(fragment) - 1:
-                    spaced_message += letter + " "
-                    continue
-                spaced_message += letter
                 continue
 
             # Just a regular letter to space
