@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import discord
 from discord.ext import commands
 
-from utils import isEmote
+import utils
 from help import TextSpacerHelp
 
 load_dotenv()
@@ -19,14 +19,11 @@ intents = discord.Intents.default()
 intents.messages = True
 intents.message_content = True
 
-help_command = commands.DefaultHelpCommand(no_category="Commands")
-
 description = "My sole job is to spacify your words! Type $help for a demonstration."
 
 bot = commands.Bot(
     command_prefix="$",
     intents=intents,
-    description=description,
     help_command=TextSpacerHelp(),
 )
 
@@ -36,6 +33,27 @@ async def on_ready():
     print(f"{bot.user.name} is connected to Discord!")
 
 
+@bot.event
+async def on_command_error(ctx: commands.Context, error: Exception):
+    if (
+        isinstance(error, commands.errors.UnexpectedQuoteError)
+        and ctx.command == "spacify"
+    ):
+        await ctx.send(
+            "Sorry, I don't like double quotes! Please use singles (' ') instead!"
+        )
+    else:
+        print(error)
+        await ctx.send("Sorry, I couldn't spacify that. Try it again.")
+
+
+# Actually made a mistake. The function should have params
+# of ctx, *, and message (args) - this brings in the entire message
+# without splitting words into letters in a tuple per word.
+# I was just blindly following tutorials and did it wrong.
+# For now though, this provides an easier way to process
+# Discord emotes via the is_emote's regex implementation,
+# s+o I'll keep it like this until I feel like cleaning it up.
 @bot.command()
 async def spacify(ctx: commands.Context, *args: tuple[str]):
     """
@@ -47,6 +65,14 @@ async def spacify(ctx: commands.Context, *args: tuple[str]):
     if len(args) == 0:
         await ctx.send(f"## Usage:\n\n{spacify.help}")
         return
+    elif len(args) > 100:
+        await ctx.send("That shit too long man!")
+        return
+
+    # get the emotes at the start of processing
+    # to know what the bot has access to when it
+    # encounters an emote
+    bot_emotes = utils.get_bot_emotes(bot)
 
     # For when the user wants to ignore a substring.
     # Toggled via {}.
@@ -54,9 +80,16 @@ async def spacify(ctx: commands.Context, *args: tuple[str]):
 
     spaced_message = ""
     for fragment in args:
+        if len("".join(fragment)) > 50:
+            await ctx.send("That shit too long man!")
+            return
         # ignore discord emote fragments
-        if isEmote(emote := "".join(fragment)):
-            spaced_message += emote
+        if utils.is_emote(emote := "".join(fragment)):
+            # add a space if the bot doesn't have access to the emote
+            if utils.emote_is_available(emote, bot_emotes):
+                spaced_message += emote
+            else:
+                spaced_message += emote + " "
             continue
 
         # check for ignore
@@ -84,10 +117,6 @@ async def spacify(ctx: commands.Context, *args: tuple[str]):
             spaced_message += word + " "
             continue
 
-        # ? could str.replace with a regex for
-        # ? all characters be used instead of
-        # ? nested iteration? it would have
-        # ? to ignore spaces and emojis.
         # spacing the letters in the fragment
         for letter in fragment:
             if letter.isspace():
@@ -102,7 +131,7 @@ async def spacify(ctx: commands.Context, *args: tuple[str]):
             # Just a regular letter to space
             spaced_message += letter + " "
 
-    await ctx.send(spaced_message)
+    await ctx.send(spaced_message.strip())
 
 
 spacify.usage = "- Type any message, {ignore words by using braces}"
