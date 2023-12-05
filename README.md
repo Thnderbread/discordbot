@@ -1,4 +1,4 @@
-# discordbot
+# Discord Text Spacer Bot
 
 A simple discord bot that inserts spaces between letters in words.
 
