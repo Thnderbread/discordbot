@@ -111,12 +111,11 @@ async def test_spacify_with_no_message(setup_bot):
     assert dpytest.verify().message().content(expected)
 
 
-# Enabled when the length check is implemented.
 @pytest.mark.asyncio
 async def test_spacify_with_long_message(setup_bot):
-    """Sends the message "That shit too long man!"" When too long of a string is given"""
+    """Sends the message "Whoa! Too much stuff! Try something shorter." When too long of a string is given"""
     message = "hi!" * 101
-    expected = "That shit too long man!"
+    expected = "Whoa! Too much stuff! Try something shorter."
 
     await dpytest.message(f"$test_original_spacify {message}")
     assert dpytest.verify().message().content(expected)
