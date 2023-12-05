@@ -29,27 +29,27 @@ Go back to your Discord server and add the bot.
 
 The bot responds to the ``$spacify`` command. After inputting that, type anything you want! For example:
 
-$spacify Hello there!
+```$spacify Hello there!```
 
 Outputs:
 
-H e l l o t h e r e !
+``H e l l o t h e r e !``
 
 You can use braces {} to ignore certain words:
 
-$spacify Hello {there!}
+```$spacify Hello {there!}```
 
 Outputs:
 
-H e l l o there!
+``H e l l o there!``
 
 Discord emotes and emojis are preserved as well!
 
-$spacify Thumbs up! 👍
+```$spacify Thumbs up! 👍```
 
 Outpus:
 
-T h u m b s u p ! 👍
+``T h u m b s u p ! 👍``
 
 # Notes
 
