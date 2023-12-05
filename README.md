@@ -54,5 +54,6 @@ Outpus:
 # Notes
 
 - Make sure to include a space between any words and emotes or emojis. They may not render correctly if this is not done.
-- This bot will only have access to the emotes in your server!
-- Type $help or $help spacify to get a rundown of the bot usage.
+- This bot will only have access to the emotes in your server! If the bot doesn't have access to an emote in the message it's processing,
+    - It may appear like this : <a:Emote_name:01234567890123456789> or like this: :emote_name:. This is how emotes look under the Discord hood!
+- Type ```$help``` or ```$help spacify``` to get a rundown of the bot usage.
