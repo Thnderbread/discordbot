@@ -15,15 +15,15 @@ Once you do that, you'll want to go ahead and clone the repo:
 
 ```git clone https://github.com/Thnderbread/discordbot```
 
-Open up the folder where the repo was cloned, and create a .env file. Write the following:
+Open up the folder where the repo was cloned, and create a file called `.env` Write the following:
 
 BOT_TOKEN=[YOUR BOT T0KEN HERE (without the brackets.)]
 
-Once that's done, run:
+Save it. Once that's done, the following in your text editor or command line:
 
 ```python main.py```
 
-Go back to your Discord server and add the bot.
+Then, go back to your Discord server and add the bot, if you haven't done so from the earlier tutorial already.
 
 # Bot usage
 
