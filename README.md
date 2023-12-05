@@ -3,8 +3,8 @@
 A simple discord bot that inserts spaces between letters in words.
 
 Since this bot isn't hosted anywhere, if you would like to use it, you'll have to setup the bot as your own, which requires
-going through some setup on Discord's side. Below is a guide to get you started:
-(Make sure that the bot has access to all Message related permissions!)
+going through some setup on Discord's side. Below is a guide to get you started
+(Make sure that the bot has access to all Message related permissions!):
 
 https://www.ionos.com/digitalguide/server/know-how/creating-discord-bot/
 
