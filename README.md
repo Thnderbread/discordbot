@@ -21,6 +21,7 @@ BOT_TOKEN=[YOUR BOT T0KEN HERE (without the brackets.)]
 
 Save it. Once that's done, the following in your text editor or command line:
 
+```pip install -r requirements.txt```
 ```python main.py```
 
 Then, go back to your Discord server and add the bot, if you haven't done so from the earlier tutorial already.
