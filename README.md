@@ -8,6 +8,11 @@ going through some setup on Discord's side. Below is a guide to get you started
 
 https://www.ionos.com/digitalguide/server/know-how/creating-discord-bot/
 
+Or you can try this guide after following the below steps:
+https://www.youtube.com/watch?v=SRV_4C9aEqM
+
+And the bot's user ID is: ```1179924526788788244```, which you'll need.
+
 You'll also need Python, git, and some kind of text editor installed on your computer.
 
 
