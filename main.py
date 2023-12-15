@@ -42,6 +42,8 @@ async def on_command_error(ctx: commands.Context, error: Exception):
         await ctx.send(
             "Sorry, I don't like double quotes! Please use singles (' ') instead!"
         )
+    elif isinstance(error, commands.errors.CommandNotFound):
+        print(f"This isn't a command: '{ctx.message.content}'")
     else:
         print(error)
         await ctx.send("Sorry, I couldn't spacify that. Try it again.")
