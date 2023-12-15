@@ -8,6 +8,11 @@ going through some setup on Discord's side. Below is a guide to get you started
 
 https://www.ionos.com/digitalguide/server/know-how/creating-discord-bot/
 
+Or you can try this guide after following the below steps:
+https://www.youtube.com/watch?v=SRV_4C9aEqM
+
+And the bot's user ID is: ```1179924526788788244```, which you'll need.
+
 You'll also need Python, git, and some kind of text editor installed on your computer.
 
 
@@ -15,15 +20,16 @@ Once you do that, you'll want to go ahead and clone the repo:
 
 ```git clone https://github.com/Thnderbread/discordbot```
 
-Open up the folder where the repo was cloned, and create a .env file. Write the following:
+Open up the folder where the repo was cloned, and create a file called `.env` Write the following:
 
 BOT_TOKEN=[YOUR BOT T0KEN HERE (without the brackets.)]
 
-Once that's done, run:
+Save it. Once that's done, the following in your text editor or command line:
 
+```pip install -r requirements.txt```
 ```python main.py```
 
-Go back to your Discord server and add the bot.
+Then, go back to your Discord server and add the bot, if you haven't done so from the earlier tutorial already.
 
 # Bot usage
 
